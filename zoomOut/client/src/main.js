@@ -7,11 +7,15 @@ Vue.config.productionTip = false
 
 const store = new Vuex.Store({
   state: {
-    structure: null
+    structure: null,
+    createNewModel: false
   },
   mutations: {
     setStructure(state, structure){
       state.structure = structure
+    },
+    setCreateNewModel(state, bool) {
+      state.createNewModel = bool
     }
   }
 })

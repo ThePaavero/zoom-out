@@ -16,17 +16,43 @@
         </li>
       </ul>
     </section>
+    <section>
+      <h2>Models</h2>
+      <ul>
+        <li v-for='data in this.$store.state.structure.models'>
+          <h4>{{ data.className }}</h4>
+          <ul>
+            <li v-for='method in data.methods'>
+              <h5>
+                <small>{{ method.modifiers[0] }}</small>
+                {{ method.name }}
+              </h5>
+            </li>
+          </ul>
+        </li>
+      </ul>
+      <CreateModelForm v-if='this.$store.state.createNewModel'/>
+      <button v-else @click.prevent='createNew("model")'>Create new Model</button>
+    </section>
   </div><!-- structure-display -->
 </template>
 
 <script>
+  import CreateModelForm from './CreateModelForm.vue'
+
   export default{
     props: [],
-    components: {},
+    components: {
+      CreateModelForm,
+    },
     data() {
       return {}
     },
-    methods: {}
+    methods: {
+      createNew(type) {
+        this.$store.commit('setCreateNewModel', true)
+      }
+    }
   }
 </script>
 
