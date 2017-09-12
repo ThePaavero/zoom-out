@@ -24,7 +24,7 @@ class Analyzer
 
         $phpFiles[] = [
           'filePath' => $completePath,
-          'code' => base64_encode($code),
+          'code' => substr(base64_encode($code), 0, 10) . '...',
           'methods' => $methods
         ];
       }

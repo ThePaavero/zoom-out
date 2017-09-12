@@ -1,0 +1,20 @@
+<template>
+  <div>
+    <h1>StructureDisplay</h1>
+  </div>
+</template>
+
+<script>
+  export default{
+    props: [],
+    components: {},
+    data() {
+      return {}
+    },
+    methods: {}
+  }
+</script>
+
+<!--<style lang='scss' type='text/scss' scoped>-->
+<style scoped>
+</style>
