@@ -12,7 +12,7 @@
       <label>
         Fields
         <div v-for='field in objectToCreate.databaseFields'>
-          <ModelFieldForm @submit='addFieldToObject'/>
+          <ModelFieldForm :object='field'/>
         </div>
       </label>
     </div><!-- row -->
@@ -40,13 +40,17 @@
     },
     methods: {
       addFieldForm() {
-        this.objectToCreate.databaseFields.push({})
+        const newFieldObject = {
+          databaseColumnName: '',
+          databaseColumnType: 'integer'
+        }
+        this.objectToCreate.databaseFields.push(newFieldObject)
+        return newFieldObject
       },
       close() {
         this.$store.commit('setCreateNewModel', false)
       },
       submit() {
-//        this.$store.commit('addToModelsToCreate', this.objectToCreate)
         console.log('Create new model:', this.objectToCreate)
         axios.post(this.$store.state.backendBaseUrl + 'create.php', {
           type: 'model',
@@ -56,10 +60,6 @@
         }).catch(console.error)
         this.close()
       },
-      addFieldToObject(field) {
-        console.log('Got field:', field)
-        this.objectToCreate.databaseFields.push(field)
-      }
     }
   }
 </script>

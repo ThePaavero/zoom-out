@@ -1,10 +1,19 @@
 <template>
-  <div @keyup.enter.stop.prevent='submit'>
+  <div @keyup.stop.prevent='update' @click.stop.prevent='update'>
     <label>
       Database column name
       <input type='text' v-model='field.databaseColumnName' placeholder='phoneNumber'/>
     </label>
-    <button @click='submit'>Done</button>
+    <label>
+      Database column type
+      <select v-model='field.databaseColumnType'>
+        <option value='integer' selected>Integer</option>
+        <option value='float'>Float</option>
+        <option value='string'>String</option>
+        <option value='boolean'>Boolean</option>
+        <option value='dateTime'>DateTime</option>
+      </select>
+    </label>
   </div>
 </template>
 
@@ -12,7 +21,7 @@
   import _ from 'lodash'
 
   export default{
-    props: [],
+    props: ['object'],
     mounted() {
       // ...
     },
@@ -21,12 +30,14 @@
       return {
         field: {
           databaseColumnName: '',
+          databaseColumnType: 'integer'
         }
       }
     },
     methods: {
-      submit() {
-        this.$emit('submit', this.field)
+      update() {
+        console.log('Update parent...')
+        console.log(this.object)
       }
     }
   }
