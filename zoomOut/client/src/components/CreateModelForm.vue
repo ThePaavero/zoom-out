@@ -23,6 +23,7 @@
 
 <script>
   import ModelFieldForm from './ModelFieldForm.vue'
+  import axios from 'axios'
 
   export default{
     props: [],
@@ -47,6 +48,12 @@
       submit() {
 //        this.$store.commit('addToModelsToCreate', this.objectToCreate)
         console.log('Create new model:', this.objectToCreate)
+        axios.post(this.$store.state.backendBaseUrl + 'create.php', {
+          type: 'model',
+          data: this.objectToCreate
+        }).then(response => {
+          console.log(response.data)
+        }).catch(console.error)
         this.close()
       },
       addFieldToObject(field) {

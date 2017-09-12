@@ -9,7 +9,8 @@ const store = new Vuex.Store({
   state: {
     structure: null,
     createNewModel: false,
-    modelsToCreate: []
+    modelsToCreate: [],
+    backendBaseUrl: 'http://zoom-out.dev:8000/zoomOut/backend/'
   },
   mutations: {
     setStructure(state, structure){

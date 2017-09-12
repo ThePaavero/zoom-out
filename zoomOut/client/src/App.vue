@@ -13,7 +13,7 @@
 
   export default {
     mounted() {
-      axios.get('http://zoom-out.dev:8000/zoomOut/backend/').then(response => {
+      axios.get(this.$store.state.backendBaseUrl).then(response => {
         this.$store.commit('setStructure', response.data)
       })
     },
