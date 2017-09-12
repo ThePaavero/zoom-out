@@ -1,4 +1,5 @@
 <?php
+require 'ClassParser.php';
 
 class Analyzer
 {
@@ -17,11 +18,30 @@ class Analyzer
     {
       if (substr($fileName, - 4) === '.php')
       {
-        $phpFiles[] = $dirPath . $fileName;
+        $completePath = $dirPath . $fileName;
+        $code = file_get_contents($completePath);
+        $methods = $this->extractMethods($completePath, $code);
+
+        $phpFiles[] = [
+          'filePath' => $completePath,
+          'code' => base64_encode($code),
+          'methods' => $methods
+        ];
       }
     }
 
     return $phpFiles;
+  }
+
+  public function extractMethods($filePath, $code)
+  {
+    $parser = new ClassParser();
+    $parser->parse($filePath, $code);
+
+    $dada = $parser->getClasses();
+    $methods = isset($dada[key($dada)]['functions']) ? $dada[key($dada)]['functions'] : [];
+
+    return $methods;
   }
 
   public function getStructure()
