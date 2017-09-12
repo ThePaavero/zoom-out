@@ -45,7 +45,6 @@
           databaseColumnType: 'integer'
         }
         this.objectToCreate.databaseFields.push(newFieldObject)
-        return newFieldObject
       },
       close() {
         this.$store.commit('setCreateNewModel', false)
