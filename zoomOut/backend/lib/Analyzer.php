@@ -18,6 +18,7 @@ class Analyzer
   {
     $all = scandir($dirPath);
     $phpFiles = [];
+
     foreach ($all as $fileName)
     {
       if (substr($fileName, - 4) != '.php' || in_array($fileName, $this->ignoreFileNames))
@@ -27,27 +28,39 @@ class Analyzer
 
       $completePath = $dirPath . $fileName;
       $code = file_get_contents($completePath);
-      $methods = $this->extractMethods($completePath, $code);
+      $data = $this->extractData($completePath, $code);
 
       $phpFiles[] = [
         'filePath' => $completePath,
         'code' => substr(base64_encode($code), 0, 10) . '...',
-        'methods' => $methods
+        'className' => $data['name'],
+        'methods' => isset($data['functions']) ? $this->methodsIntoArray($data['functions']) : []
       ];
     }
 
     return $phpFiles;
   }
 
-  public function extractMethods($filePath, $code)
+  public function methodsIntoArray($functions)
+  {
+    $return = [];
+    foreach ($functions as $key => $val)
+    {
+      $val['name'] = $key;
+      $return[] = $val;
+    }
+
+    return $return;
+  }
+
+  public function extractData($filePath, $code)
   {
     $parser = new ClassParser();
     $parser->parse($filePath, $code);
 
-    $dada = $parser->getClasses();
-    $methods = isset($dada[key($dada)]['functions']) ? $dada[key($dada)]['functions'] : [];
+    $data = $parser->getClasses();
 
-    return $methods;
+    return $data[key($data)];
   }
 
   public function getStructure()

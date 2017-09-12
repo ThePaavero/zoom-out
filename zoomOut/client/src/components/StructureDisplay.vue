@@ -1,15 +1,21 @@
 <template>
   <div class='structure-display'>
-    <!--<pre>{{ this.$store.state.structure }}</pre>-->
     <section>
       <h2>Controllers</h2>
       <ul>
         <li v-for='data in this.$store.state.structure.controllers'>
-          {{ data }}
+          <h4>{{ data.className }}</h4>
+          <ul>
+            <li v-for='method in data.methods'>
+              <h5>
+                <small>{{ method.modifiers[0] }}</small>
+                {{ method.name }}
+              </h5>
+            </li>
+          </ul>
         </li>
       </ul>
     </section>
-    <!-- -->
   </div><!-- structure-display -->
 </template>
 
@@ -28,5 +34,9 @@
 <style scoped>
   .structure-display {
     text-align: left;
+  }
+
+  small {
+    opacity: 0.5;
   }
 </style>
