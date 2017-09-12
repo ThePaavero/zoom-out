@@ -4,10 +4,14 @@ require 'ClassParser.php';
 class Analyzer
 {
   protected $rootDirPath;
+  protected $ignoreFileNames;
 
   public function __construct($rootDirPath)
   {
     $this->rootDirPath = $rootDirPath;
+    $this->ignoreFileNames = [
+      'Controller.php'
+    ];
   }
 
   public function getPhpFilesFromDir($dirPath)
@@ -16,18 +20,20 @@ class Analyzer
     $phpFiles = [];
     foreach ($all as $fileName)
     {
-      if (substr($fileName, - 4) === '.php')
+      if (substr($fileName, - 4) != '.php' || in_array($fileName, $this->ignoreFileNames))
       {
-        $completePath = $dirPath . $fileName;
-        $code = file_get_contents($completePath);
-        $methods = $this->extractMethods($completePath, $code);
-
-        $phpFiles[] = [
-          'filePath' => $completePath,
-          'code' => substr(base64_encode($code), 0, 10) . '...',
-          'methods' => $methods
-        ];
+        continue;
       }
+
+      $completePath = $dirPath . $fileName;
+      $code = file_get_contents($completePath);
+      $methods = $this->extractMethods($completePath, $code);
+
+      $phpFiles[] = [
+        'filePath' => $completePath,
+        'code' => substr(base64_encode($code), 0, 10) . '...',
+        'methods' => $methods
+      ];
     }
 
     return $phpFiles;
