@@ -20,7 +20,7 @@ const store = new Vuex.Store({
     },
     addToModelsToCreate(state, obj) {
       state.modelsToCreate.push(obj)
-    }
+    },
   }
 })
 

@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div @keyup.enter='submit'>
     <label>
       Database column name
-      <input type='text' v-model='databaseColumnName' placeholder='phoneNumber' @keyup='update'/>
+      <input type='text' v-model='field.databaseColumnName' placeholder='phoneNumber'/>
     </label>
   </div>
 </template>
@@ -11,19 +11,21 @@
   import _ from 'lodash'
 
   export default{
-    props: ['container'],
+    props: [],
     mounted() {
-      console.log(this.container)
+      // ...
     },
     components: {},
     data() {
       return {
-        databaseColumnName: '',
+        field: {
+          databaseColumnName: '',
+        }
       }
     },
     methods: {
-      update() {
-//        this.container.databaseColumnName = this.databaseColumnName
+      submit() {
+        this.$emit('submit', this.field)
       }
     }
   }

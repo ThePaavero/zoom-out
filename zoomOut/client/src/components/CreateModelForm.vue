@@ -11,9 +11,12 @@
     <div class='row'>
       <label>
         Fields
-        <ModelFieldForm :container='this.getNewFieldContainer()'/>
+        <div v-for='field in objectToCreate.databaseFields'>
+          <ModelFieldForm @submit='addFieldToObject'/>
+        </div>
       </label>
     </div><!-- row -->
+    <button @click='addFieldForm'>Add field</button>
     <button @click='submit'>Save</button>
   </div><!-- add-new-area -->
 </template>
@@ -35,11 +38,8 @@
       }
     },
     methods: {
-      getNewFieldContainer() {
-        const container = {
-          databaseColumnName: ''
-        }
-        return container
+      addFieldForm() {
+        this.objectToCreate.databaseFields.push({})
       },
       close() {
         this.$store.commit('setCreateNewModel', false)
@@ -47,6 +47,9 @@
       submit() {
         this.$store.commit('addToModelsToCreate', this.objectToCreate)
       },
+      addFieldToObject(field) {
+        this.objectToCreate.databaseFields.push(field)
+      }
     }
   }
 </script>
