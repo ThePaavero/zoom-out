@@ -1,9 +1,10 @@
 <template>
-  <div @keyup.enter='submit'>
+  <div @keyup.enter.stop.prevent='submit'>
     <label>
       Database column name
       <input type='text' v-model='field.databaseColumnName' placeholder='phoneNumber'/>
     </label>
+    <button @click='submit'>Done</button>
   </div>
 </template>
 
@@ -19,7 +20,7 @@
     data() {
       return {
         field: {
-          databaseColumnName: '',
+          databaseColumnName: 'MARSU',
         }
       }
     },

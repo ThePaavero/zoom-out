@@ -45,9 +45,12 @@
         this.$store.commit('setCreateNewModel', false)
       },
       submit() {
-        this.$store.commit('addToModelsToCreate', this.objectToCreate)
+//        this.$store.commit('addToModelsToCreate', this.objectToCreate)
+        console.log('Create new model:', this.objectToCreate)
+        this.close()
       },
       addFieldToObject(field) {
+        console.log('Got field:', field)
         this.objectToCreate.databaseFields.push(field)
       }
     }

@@ -34,6 +34,7 @@
       <CreateModelForm v-if='this.$store.state.createNewModel'/>
       <button v-else @click.prevent='createNew("model")'>Create new Model</button>
     </section>
+    <!--<button @click='submit'>Submit project structure</button>-->
   </div><!-- structure-display -->
 </template>
 
@@ -51,12 +52,14 @@
     methods: {
       createNew(type) {
         this.$store.commit('setCreateNewModel', true)
+      },
+      submit() {
+        console.log('Submit!')
       }
     }
   }
 </script>
 
-<!--<style lang='scss' type='text/scss' scoped>-->
 <style scoped>
   .structure-display {
     text-align: left;
