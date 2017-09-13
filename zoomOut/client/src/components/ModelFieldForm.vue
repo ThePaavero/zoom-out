@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class='field-wrapper'>
     <div class='col'>
       <label>
         Database column name
@@ -20,7 +20,7 @@
         <input type='checkbox' value='index' v-model='container.isIndex'/>
       </label>
     </div><!-- col -->
-    <a href='#' @click.prevent='cancel'>Cancel</a>
+    <a href='#' @click.prevent='cancel' class='cancel-button'>Cancel</a>
   </div>
 </template>
 
@@ -90,4 +90,23 @@
 </script>
 
 <style scoped>
+  .field-wrapper {
+    position: relative;
+    margin: 2px 0;
+  }
+
+  .col {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 5px 10px;
+    display: inline-block;
+    margin-right: 1px;
+  }
+
+  .cancel-button {
+    text-decoration: none;
+    font-size: 11px;
+    position: absolute;
+    top: 3px;
+    right: 5px;
+  }
 </style>
