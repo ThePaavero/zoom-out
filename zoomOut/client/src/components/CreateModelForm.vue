@@ -40,10 +40,10 @@
     },
     methods: {
       addFieldForm() {
-
         const newFieldObject = {
           databaseColumnName: '',
-          databaseColumnType: 'string'
+          databaseColumnType: 'string',
+          isIndex: false
         }
         this.objectToCreate.databaseFields.push(newFieldObject)
       },
@@ -67,9 +67,9 @@
             axios.get(this.$store.state.backendBaseUrl).then(response => {
               this.$store.commit('setStructure', response.data)
             })
-          } else {
-            window.alert('Something went wrong:\n\n' + response.data.error)
+            return
           }
+          window.alert('Something went wrong:\n\n' + response.data.error)
         }).catch(console.error)
         this.close()
       },

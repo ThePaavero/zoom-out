@@ -1,15 +1,25 @@
 <template>
   <div>
-    <label>
-      Database column name
-      <input type='text' v-model='container.databaseColumnName' placeholder='phoneNumber'/>
-    </label>
-    <label>
-      Database column type
-      <select v-model='container.databaseColumnType'>
-        <option v-for='type in possibleTypes' :value='type'>{{ type }}</option>
-      </select>
-    </label>
+    <div class='col'>
+      <label>
+        Database column name
+        <input type='text' v-model='container.databaseColumnName' placeholder='phoneNumber'/>
+      </label>
+    </div><!-- col -->
+    <div class='col'>
+      <label>
+        Database column type
+        <select v-model='container.databaseColumnType'>
+          <option v-for='type in possibleTypes' :value='type'>{{ type }}</option>
+        </select>
+      </label>
+    </div><!-- col -->
+    <div class='col'>
+      <label>
+        Index
+        <input type='checkbox' value='index' v-model='container.isIndex'/>
+      </label>
+    </div><!-- col -->
   </div>
 </template>
 
