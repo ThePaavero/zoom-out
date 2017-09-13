@@ -44,7 +44,13 @@ if ($data['type'] === 'model')
 
     foreach ($fields as $field)
     {
+      if (empty($field['databaseColumnName']) || empty($field['databaseColumnType']))
+      {
+        continue;
+      }
       $isIndex = isset($object['isIndex']);
+      $useTimestamps = isset($object['useTimestamps']);
+
       $columnCode .= tabs(3) . '$table->' . $field['databaseColumnType'] . '(\'' . $field['databaseColumnName'] . '\')';
       if ($field['isIndex'])
       {
@@ -53,13 +59,23 @@ if ($data['type'] === 'model')
       $columnCode .= ';' . PHP_EOL;
     }
 
+    if ($object['useTimestamps'])
+    {
+      $columnCode .= tabs(3) . '$table->timestamps();' . PHP_EOL;
+    }
+    if ($object['useTimestamps'])
+    {
+      $columnCode .= tabs(3) . '$table->softDeletes();' . PHP_EOL;
+    }
+
     $tableName = lcfirst($className);
-    $timestampString = date('Y_n_d') . '_000000';
+    $timestampString = date('Y_n_d') . '_' . time();
     $migrationFilePath = $rootPath . 'database/migrations/' . $timestampString . '_create_' . $tableName . '_table.php';
     $template = file_get_contents(__DIR__ . '/templates/migration.php');
     $template = str_replace('TABLENAME', $tableName, $template);
     $template = str_replace('TABLEUCFIRST', $className, $template);
     $template = str_replace('// COLUMNS', $columnCode, $template);
+
     file_put_contents($migrationFilePath, $template);
   }
 }

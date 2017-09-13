@@ -12,8 +12,6 @@ class CreateTABLEUCFIRSTTable extends Migration
     {
       $table->increments('id');
 // COLUMNS
-      $table->rememberToken();
-      $table->timestamps();
     });
   }
 

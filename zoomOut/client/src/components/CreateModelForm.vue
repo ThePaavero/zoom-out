@@ -16,6 +16,18 @@
         </div>
       </label>
     </div><!-- row -->
+    <div class='row'>
+      <label>
+        Timestamps
+        <input type='checkbox' value='index' v-model='objectToCreate.useTimestamps'/>
+      </label>
+    </div><!-- row -->
+    <div class='row'>
+      <label>
+        Soft deletes
+        <input type='checkbox' value='index' v-model='objectToCreate.useSoftDeleted'/>
+      </label>
+    </div><!-- row -->
     <button @click='addFieldForm'>Add field</button>
     <button @click='submit'>Save</button>
   </div><!-- add-new-area -->
@@ -34,7 +46,9 @@
       return {
         objectToCreate: {
           className: '',
-          databaseFields: []
+          databaseFields: [],
+          useTimestamps: true,
+          useSoftDeletes: false
         }
       }
     },
@@ -43,7 +57,9 @@
         const newFieldObject = {
           databaseColumnName: '',
           databaseColumnType: 'string',
-          isIndex: false
+          isIndex: false,
+          useTimestamps: true,
+          useSoftDeleted: false
         }
         this.objectToCreate.databaseFields.push(newFieldObject)
       },
