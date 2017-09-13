@@ -7,11 +7,7 @@
     <label>
       Database column type
       <select v-model='container.databaseColumnType'>
-        <option value='integer' selected>Integer</option>
-        <option value='float'>Float</option>
-        <option value='string'>String</option>
-        <option value='boolean'>Boolean</option>
-        <option value='dateTime'>DateTime</option>
+        <option v-for='type in possibleTypes' :value='type'>{{ type }}</option>
       </select>
     </label>
   </div>
@@ -19,7 +15,58 @@
 
 <script>
   export default{
-    props: ['container']
+    props: ['container'],
+    data() {
+      return {
+        possibleTypes: [
+          'bigIncrements',
+          'bigInteger',
+          'binary',
+          'boolean',
+          'char',
+          'date',
+          'dateTime',
+          'dateTimeTz',
+          'decimal',
+          'double',
+          'enum',
+          'float',
+          'increments',
+          'integer',
+          'ipAddress',
+          'json',
+          'jsonb',
+          'longText',
+          'macAddress',
+          'mediumIncrements',
+          'mediumInteger',
+          'mediumText',
+          'morphs',
+          'nullableMorphs',
+          'nullableTimestamps',
+          'rememberToken',
+          'smallIncrements',
+          'smallInteger',
+          'softDeletes',
+          'string',
+          'string',
+          'text',
+          'time',
+          'timeTz',
+          'tinyInteger',
+          'timestamp',
+          'timestampTz',
+          'timestamps',
+          'timestampsTz',
+          'unsignedBigInteger',
+          'unsignedInteger',
+          'unsignedMediumInteger',
+          'unsignedSmallInteger',
+          'unsignedTinyInteger',
+          'uuid',
+        ]
+      }
+    }
   }
 </script>
 
