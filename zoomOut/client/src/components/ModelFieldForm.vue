@@ -1,5 +1,5 @@
 <template>
-  <div @keyup.stop.prevent='update' @click.stop.prevent='update'>
+  <div>
     <label>
       Database column name
       <input type='text' v-model='container.databaseColumnName' placeholder='phoneNumber'/>
@@ -26,12 +26,6 @@
     data: () => {
       return {
         container: this.container
-      }
-    },
-    methods: {
-      update() {
-        console.log('Update parent...')
-        console.log(this.container)
       }
     }
   }
