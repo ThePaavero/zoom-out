@@ -12,7 +12,7 @@
       <label>
         Fields
         <div v-for='field in objectToCreate.databaseFields'>
-          <ModelFieldForm :object='field'/>
+          <ModelFieldForm :container='field'/>
         </div>
       </label>
     </div><!-- row -->
@@ -53,7 +53,7 @@
         this.$store.commit('setCreateNewModel', false)
       },
       submit() {
-//        console.log('Create new model:', this.objectToCreate)
+        console.log('Create new model:', this.objectToCreate)
 //        axios.post(this.$store.state.backendBaseUrl + 'create.php', {
 //          type: 'model',
 //          data: this.objectToCreate
