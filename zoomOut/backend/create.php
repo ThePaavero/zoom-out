@@ -11,6 +11,12 @@ if ($data['type'] === 'model')
   $className = $object['className'];
   $modelFilePath = $rootPath . 'app/' . $className . '.php';
 
+  if (file_exists($modelFilePath))
+  {
+    die(json_encode([
+      'error' => 'Model file already exists.'
+    ]));
+  }
   if ( ! touch($modelFilePath))
   {
     die(json_encode([

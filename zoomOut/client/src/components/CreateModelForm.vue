@@ -68,7 +68,7 @@
               this.$store.commit('setStructure', response.data)
             })
           } else {
-            window.alert('Something went wrong.')
+            window.alert('Something went wrong:\n\n' + response.data.error)
           }
         }).catch(console.error)
         this.close()
