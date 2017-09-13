@@ -21,13 +21,7 @@
   import _ from 'lodash'
 
   export default{
-    props: ['container'],
-    components: {},
-    data: () => {
-      return {
-        container: this.container
-      }
-    }
+    props: ['container']
   }
 </script>
 
