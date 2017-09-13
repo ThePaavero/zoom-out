@@ -24,7 +24,7 @@
       <label>
         Fields
         <div v-for='field in objectToCreate.databaseFields'>
-          <ModelFieldForm :container='field'/>
+          <ModelFieldForm :container='field' @canceled='cancelField(field)'/>
         </div>
       </label>
     </div><!-- row -->
@@ -36,6 +36,7 @@
 <script>
   import ModelFieldForm from './ModelFieldForm.vue'
   import axios from 'axios'
+  import _ from 'lodash'
 
   export default{
     props: [],
@@ -63,9 +64,6 @@
         }
         this.objectToCreate.databaseFields.push(newFieldObject)
       },
-      getObjectToCreate() {
-        return objectToCreate
-      },
       close() {
         this.$store.commit('setCreateNewModel', false)
       },
@@ -89,6 +87,11 @@
         }).catch(console.error)
         this.close()
       },
+      cancelField(field) {
+        this.objectToCreate.databaseFields = this.objectToCreate.databaseFields.filter(i => {
+          return i !== field
+        })
+      }
     }
   }
 </script>

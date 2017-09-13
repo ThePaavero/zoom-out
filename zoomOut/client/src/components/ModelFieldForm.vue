@@ -20,6 +20,7 @@
         <input type='checkbox' value='index' v-model='container.isIndex'/>
       </label>
     </div><!-- col -->
+    <a href='#' @click.prevent='cancel'>Cancel</a>
   </div>
 </template>
 
@@ -78,6 +79,11 @@
           'unsignedTinyInteger',
           'uuid',
         ]
+      }
+    },
+    methods: {
+      cancel() {
+        this.$emit('canceled')
       }
     }
   }
