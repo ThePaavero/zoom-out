@@ -10,10 +10,9 @@ if ($data['type'] === 'model')
 
   $fields = $object['databaseFields'];
   $className = $object['className'];
-  $isIndex = isset($object['isIndex']);
 
+  // Model
   $modelFilePath = $rootPath . 'app/' . $className . '.php';
-
   if (file_exists($modelFilePath))
   {
     die(json_encode([
@@ -41,11 +40,26 @@ if ($data['type'] === 'model')
   // Migration
   if ( ! empty($fields))
   {
+    $columnCode = '';
+
+    foreach ($fields as $field)
+    {
+      $isIndex = isset($object['isIndex']);
+      $columnCode .= tabs(3) . '$table->' . $field['databaseColumnType'] . '(\'' . $field['databaseColumnName'] . '\')';
+      if ($field['isIndex'])
+      {
+        $columnCode .= '->index()';
+      }
+      $columnCode .= ';' . PHP_EOL;
+    }
+
     $tableName = lcfirst($className);
     $timestampString = date('Y_n_d') . '_000000';
     $migrationFilePath = $rootPath . 'database/migrations/' . $timestampString . '_create_' . $tableName . '_table.php';
     $template = file_get_contents(__DIR__ . '/templates/migration.php');
     $template = str_replace('TABLENAME', $tableName, $template);
+    $template = str_replace('TABLEUCFIRST', $className, $template);
+    $template = str_replace('// COLUMNS', $columnCode, $template);
     file_put_contents($migrationFilePath, $template);
   }
 }

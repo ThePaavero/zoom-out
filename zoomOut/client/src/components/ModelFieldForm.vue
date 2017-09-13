@@ -3,7 +3,7 @@
     <div class='col'>
       <label>
         Database column name
-        <input type='text' v-model='container.databaseColumnName' placeholder='phoneNumber'/>
+        <input type='text' v-model='container.databaseColumnName' placeholder='phoneNumber' ref='nameInput'/>
       </label>
     </div><!-- col -->
     <div class='col'>
@@ -25,6 +25,9 @@
 
 <script>
   export default{
+    mounted() {
+      this.$refs.nameInput.focus()
+    },
     props: ['container'],
     data() {
       return {
