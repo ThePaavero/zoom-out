@@ -3,17 +3,26 @@
 require 'boot.php';
 
 $data = json_decode(file_get_contents('php://input'), true)['data'];
-die(json_encode($data));
-/*$fields = $data['databaseFields'];
-$className = $data['className'];
 
-foreach ($fields as $field)
+if ($data['type'] === 'model')
 {
-  if (empty($field))
+  $object = $data['object'];
+  $fields = $object['databaseFields'];
+  $className = $object['className'];
+  $filePath = $rootPath . 'app/' . $className . '.php';
+  if ( ! touch($filePath))
   {
-    // @todo Why do we do this here?
-    continue;
+    die(json_encode([
+      'error' => 'Could not create new model file.'
+    ]));
   }
 
-  $columnName = $field['databaseColumnName'];
-}*/
+  foreach ($fields as $field)
+  {
+    $columnName = $field['databaseColumnName'];
+  }
+}
+
+die(json_encode([
+  'success' => true
+]));

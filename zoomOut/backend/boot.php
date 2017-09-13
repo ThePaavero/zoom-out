@@ -1,5 +1,7 @@
 <?php
 
+$rootPath = __DIR__ . '/../../www/';
+
 // Allow from any origin
 if (isset($_SERVER['HTTP_ORIGIN']))
 {

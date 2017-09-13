@@ -40,6 +40,7 @@
     },
     methods: {
       addFieldForm() {
+
         const newFieldObject = {
           databaseColumnName: '',
           databaseColumnType: 'string'
@@ -53,14 +54,16 @@
         this.$store.commit('setCreateNewModel', false)
       },
       submit() {
-        console.log('Create new model:', this.objectToCreate)
-//        axios.post(this.$store.state.backendBaseUrl + 'create.php', {
-//          type: 'model',
-//          data: this.objectToCreate
-//        }).then(response => {
-//          console.log(response.data)
-//        }).catch(console.error)
-//        this.close()
+        axios.post(this.$store.state.backendBaseUrl + 'create.php', {
+          data: {
+            object: this.objectToCreate,
+            type: 'model'
+          }
+        }).then(response => {
+          console.log('RESPONSE:')
+          console.log(response.data)
+        }).catch(console.error)
+        this.close()
       },
     }
   }
