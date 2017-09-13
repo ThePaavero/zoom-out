@@ -42,22 +42,25 @@
       addFieldForm() {
         const newFieldObject = {
           databaseColumnName: '',
-          databaseColumnType: 'integer'
+          databaseColumnType: 'string'
         }
         this.objectToCreate.databaseFields.push(newFieldObject)
+      },
+      getObjectToCreate() {
+        return objectToCreate
       },
       close() {
         this.$store.commit('setCreateNewModel', false)
       },
       submit() {
-        console.log('Create new model:', this.objectToCreate)
-        axios.post(this.$store.state.backendBaseUrl + 'create.php', {
-          type: 'model',
-          data: this.objectToCreate
-        }).then(response => {
-          console.log(response.data)
-        }).catch(console.error)
-        this.close()
+//        console.log('Create new model:', this.objectToCreate)
+//        axios.post(this.$store.state.backendBaseUrl + 'create.php', {
+//          type: 'model',
+//          data: this.objectToCreate
+//        }).then(response => {
+//          console.log(response.data)
+//        }).catch(console.error)
+//        this.close()
       },
     }
   }

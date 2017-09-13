@@ -2,11 +2,11 @@
   <div @keyup.stop.prevent='update' @click.stop.prevent='update'>
     <label>
       Database column name
-      <input type='text' v-model='field.databaseColumnName' placeholder='phoneNumber'/>
+      <input type='text' v-model='object.databaseColumnName' placeholder='phoneNumber'/>
     </label>
     <label>
       Database column type
-      <select v-model='field.databaseColumnType'>
+      <select v-model='object.databaseColumnType'>
         <option value='integer' selected>Integer</option>
         <option value='float'>Float</option>
         <option value='string'>String</option>
@@ -24,15 +24,11 @@
     props: ['object'],
     mounted() {
       // ...
+      console.log(this.object)
     },
     components: {},
-    data() {
-      return {
-        field: {
-          databaseColumnName: '',
-          databaseColumnType: 'integer'
-        }
-      }
+    data: {
+      object: this.object
     },
     methods: {
       update() {
