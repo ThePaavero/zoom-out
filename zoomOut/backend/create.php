@@ -61,11 +61,15 @@ if ($data['type'] === 'model')
 
     if ($object['useTimestamps'])
     {
-      $columnCode .= tabs(3) . '$table->timestamps();' . PHP_EOL;
+      $columnCode .= tabs(3) . '$table->timestamps();';
+      if ($object['useTimestamps'])
+      {
+        $columnCode .= PHP_EOL;
+      }
     }
     if ($object['useTimestamps'])
     {
-      $columnCode .= tabs(3) . '$table->softDeletes();' . PHP_EOL;
+      $columnCode .= tabs(3) . '$table->softDeletes();';
     }
 
     $tableName = lcfirst($className);

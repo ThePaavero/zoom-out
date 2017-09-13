@@ -10,14 +10,6 @@
     </div><!-- row -->
     <div class='row'>
       <label>
-        Fields
-        <div v-for='field in objectToCreate.databaseFields'>
-          <ModelFieldForm :container='field'/>
-        </div>
-      </label>
-    </div><!-- row -->
-    <div class='row'>
-      <label>
         Timestamps
         <input type='checkbox' value='index' v-model='objectToCreate.useTimestamps'/>
       </label>
@@ -26,6 +18,14 @@
       <label>
         Soft deletes
         <input type='checkbox' value='index' v-model='objectToCreate.useSoftDeleted'/>
+      </label>
+    </div><!-- row -->
+    <div class='row'>
+      <label>
+        Fields
+        <div v-for='field in objectToCreate.databaseFields'>
+          <ModelFieldForm :container='field'/>
+        </div>
       </label>
     </div><!-- row -->
     <button @click='addFieldForm'>Add field</button>
