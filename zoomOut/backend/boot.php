@@ -2,6 +2,17 @@
 
 $rootPath = __DIR__ . '/../../www/';
 
+function tabs($amount = 1)
+{
+  $string = '';
+  for ($i = 0; $i < $amount; $i ++)
+  {
+    $string .= "  ";
+  }
+
+  return $string;
+}
+
 // Allow from any origin
 if (isset($_SERVER['HTTP_ORIGIN']))
 {
