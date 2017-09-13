@@ -62,6 +62,14 @@
         }).then(response => {
           console.log('RESPONSE:')
           console.log(response.data)
+          if (response.data.success) {
+            this.$store.commit('structure', null)
+            axios.get(this.$store.state.backendBaseUrl).then(response => {
+              this.$store.commit('setStructure', response.data)
+            })
+          } else {
+            window.alert('Something went wrong.')
+          }
         }).catch(console.error)
         this.close()
       },
