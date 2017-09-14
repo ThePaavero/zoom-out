@@ -1,5 +1,6 @@
 <template>
   <div class='structure-display'>
+    <Notifications/>
     <section>
       <h2>Controllers</h2>
       <ul>
@@ -39,15 +40,13 @@
 </template>
 
 <script>
+  import Notifications from './Notifications.vue'
   import CreateModelForm from './CreateModelForm.vue'
 
   export default{
-    props: [],
     components: {
+      Notifications,
       CreateModelForm,
-    },
-    data() {
-      return {}
     },
     methods: {
       createNew(type) {

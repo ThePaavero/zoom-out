@@ -7,6 +7,7 @@ const state = {
   structure: null,
   creatingNewModel: false,
   modelsToCreate: [],
+  notifications: []
 }
 
 const mutations = {
@@ -18,6 +19,14 @@ const mutations = {
   },
   addToModelsToCreate(state, obj) {
     state.modelsToCreate.push(obj)
+  },
+  addNotification(state, notification) {
+    state.notifications.push(notification)
+  },
+  removeNotification(state, notification) {
+    state.notifications = state.notifications.filter(n => {
+      return n !== notification
+    })
   }
 }
 

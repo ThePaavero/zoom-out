@@ -27,6 +27,12 @@
           <input type='checkbox' value='nullable' v-model='container.isNullable'/>
         </label>
       </div><!-- col -->
+      <div class='col active'>
+        <label>
+          Fillable
+          <input type='checkbox' value='fillable' v-model='container.isFillable'/>
+        </label>
+      </div><!-- col -->
       <a href='#' @click.prevent='cancel' class='cancel-button'>Cancel</a>
     </form>
   </div>
@@ -100,18 +106,25 @@
 </script>
 
 <style lang='scss' type='text/scss' scoped>
-  .field-wrapper {
+  .field-wrapper form {
     position: relative;
     margin: 2px 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: stretch;
   }
 
   .col {
-    background-color: rgba(0, 0, 0, 0.2);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.1);
     padding: 5px 10px;
-    display: inline-block;
-    margin-right: 1px;
     opacity: 0.3;
     transition: opacity 0.15s;
+    justify-content: center;
+    margin-right: 2px;
 
     &.active {
       opacity: 1;

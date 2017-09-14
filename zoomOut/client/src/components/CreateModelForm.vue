@@ -64,7 +64,8 @@
           isIndex: false,
           useTimestamps: true,
           useSoftDeleted: false,
-          isNullable: false
+          isNullable: false,
+          isFillable: true
         }
         this.objectToCreate.databaseFields.push(newFieldObject)
       },
@@ -75,6 +76,10 @@
         this.$store.commit('setCreatingNewModel', false)
       },
       submit() {
+        if (this.objectToCreate.databaseColumnName.trim() === '') {
+          return
+
+        }
         this.setDisabled(true)
         network.post('create.php', {
           data: {
@@ -98,30 +103,39 @@
         this.objectToCreate.databaseFields = this.objectToCreate.databaseFields.filter(i => {
           return i !== field
         })
+        this.$store.commit('addNotification', {
+          type: 'success',
+          message: 'Field canceled, nothing was saved.'
+        })
       }
     }
   }
 </script>
 
-<style scoped>
-  h2 {
-    font-size: 15px;
-  }
-
+<style lang='scss' type='text/scss'>
   .add-new-area {
     padding: 5px 10px;
     background-color: #d8ffd8;
     position: relative;
-  }
 
-  .disabled-blocker {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    opacity: 0.7;
-    z-index: 5;
+    h2 {
+      font-size: 15px;
+    }
+
+    select,
+    input[type=text] {
+      padding: 3px 5px;
+    }
+
+    .disabled-blocker {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #fff;
+      opacity: 0.7;
+      z-index: 5;
+    }
   }
 </style>
