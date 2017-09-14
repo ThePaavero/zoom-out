@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Class ClassParser
+ *
+ * @link https://github.com/hugowetterberg/php-class-parser
+ */
 class ClassParser
 {
   private $classes = array();
