@@ -31,7 +31,7 @@
           </ul>
         </li>
       </ul>
-      <CreateModelForm v-if='this.$store.state.createNewModel'/>
+      <CreateModelForm v-if='this.$store.state.creatingNewModel'/>
       <button v-else @click.prevent='createNew("model")'>Create new Model</button>
     </section>
     <!--<button @click='submit'>Submit project structure</button>-->
@@ -51,7 +51,7 @@
     },
     methods: {
       createNew(type) {
-        this.$store.commit('setCreateNewModel', true)
+        this.$store.commit('setCreatingNewModel', true)
       },
       submit() {
         console.log('Submit!')

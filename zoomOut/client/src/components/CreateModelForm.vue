@@ -1,5 +1,6 @@
 <template>
   <div @keyup.enter='submit' class='add-new-area'>
+    <div v-if='isDisabled' class='disabled-blocker'></div>
     <h2>Create new model</h2>
     <a href='#' @click.prevent='close'>Cancel</a>
     <div class='row'>
@@ -51,7 +52,8 @@
           databaseFields: [],
           useTimestamps: true,
           useSoftDeletes: false
-        }
+        },
+        isDisabled: false
       }
     },
     methods: {
@@ -65,10 +67,14 @@
         }
         this.objectToCreate.databaseFields.push(newFieldObject)
       },
+      setDisabled(bool) {
+        this.isDisabled = bool
+      },
       close() {
-        this.$store.commit('setCreateNewModel', false)
+        this.$store.commit('setCreatingNewModel', false)
       },
       submit() {
+        this.setDisabled(true)
         network.post('create.php', {
           data: {
             object: this.objectToCreate,
@@ -79,12 +85,13 @@
             this.$store.commit('structure', null)
             network.get('').then(response => {
               this.$store.commit('setStructure', response.data)
+              this.setDisabled(false)
+              this.close()
             })
             return
           }
           window.alert('Something went wrong:\n\n' + response.data.error)
         }).catch(console.error)
-        this.close()
       },
       cancelField(field) {
         this.objectToCreate.databaseFields = this.objectToCreate.databaseFields.filter(i => {
@@ -103,5 +110,17 @@
   .add-new-area {
     padding: 5px 10px;
     background-color: #d8ffd8;
+    position: relative;
+  }
+
+  .disabled-blocker {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    opacity: 0.7;
+    z-index: 5;
   }
 </style>
