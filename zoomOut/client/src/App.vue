@@ -93,6 +93,21 @@
     }
   }
 
+  select,
+  input[type=text] {
+    border: solid 1px #46916c;
+    padding: 5px 10px;
+  }
+
+  select {
+    background-color: rgb(255, 251, 192);
+  }
+
+  input[type=checkbox] {
+    width: 14px;
+    height: 14px;
+  }
+
   #app {
     padding: 50px;
   }

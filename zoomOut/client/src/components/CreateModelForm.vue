@@ -149,11 +149,6 @@
       margin: 0;
     }
 
-    select,
-    input[type=text] {
-      padding: 3px 5px;
-    }
-
     .disabled-blocker {
       position: absolute;
       top: 0;
