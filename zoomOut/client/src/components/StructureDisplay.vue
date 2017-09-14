@@ -32,8 +32,10 @@
           </ul>
         </li>
       </ul>
-      <CreateModelForm v-if='this.$store.state.creatingNewModel'/>
-      <button v-else @click.prevent='createNew("model")'>Create new Model</button>
+      <transition name="fade" mode="out-in">
+        <CreateModelForm v-if='this.$store.state.creatingNewModel'/>
+        <button v-else @click.prevent='createNew("model")'>Create new Model</button>
+      </transition>
     </section>
     <!--<button @click='submit'>Submit project structure</button>-->
   </div><!-- structure-display -->

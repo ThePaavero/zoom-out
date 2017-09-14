@@ -1,9 +1,11 @@
 <template>
   <div id="app">
-    <StructureDisplay v-if='this.$store.state.structure'/>
-    <div v-else>
-      Loading structure, just a sec...
-    </div>
+    <transition name="fade" mode="out-in">
+      <StructureDisplay v-if='this.$store.state.structure'/>
+      <div v-else>
+        Loading structure, just a sec...
+      </div>
+    </transition>
   </div>
 </template>
 
@@ -110,5 +112,13 @@
 
   #app {
     padding: 50px;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .2s
+  }
+
+  .fade-enter, .fade-leave-to {
+    opacity: 0
   }
 </style>
