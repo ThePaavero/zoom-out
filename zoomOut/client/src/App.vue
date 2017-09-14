@@ -53,6 +53,15 @@
     background: #46916c;
     color: #fff;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.05s;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+
+    &:active {
+      transform: none;
+    }
   }
 
   h1 {
@@ -108,6 +117,11 @@
   input[type=checkbox] {
     width: 14px;
     height: 14px;
+  }
+
+  input,
+  label {
+    cursor: pointer;
   }
 
   #app {
