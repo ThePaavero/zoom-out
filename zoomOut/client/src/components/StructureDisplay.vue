@@ -37,7 +37,6 @@
         <button v-else @click.prevent='createNew("model")'>Create new Model</button>
       </transition>
     </section>
-    <!--<button @click='submit'>Submit project structure</button>-->
   </div><!-- structure-display -->
 </template>
 
