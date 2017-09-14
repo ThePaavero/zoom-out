@@ -4,25 +4,25 @@
     <h2>Create new model</h2>
     <div class='content'>
       <a href='#' @click.prevent='cancel' class='cancel-button large'>×</a>
-      <div class='row'>
+      <div class='row no-child-components'>
         <label>
           Model class name
           <input type='text' v-model='objectToCreate.className' placeholder='e.g. "Product"' ref='classNameInput'/>
         </label>
       </div><!-- row -->
-      <div class='row'>
+      <div class='row no-child-components'>
         <label>
           Timestamps
           <input type='checkbox' value='index' v-model='objectToCreate.useTimestamps'/>
         </label>
       </div><!-- row -->
-      <div class='row'>
+      <div class='row no-child-components'>
         <label>
           Soft deletes
           <input type='checkbox' value='index' v-model='objectToCreate.useSoftDeleted'/>
         </label>
       </div><!-- row -->
-      <div class='row'>
+      <div class='row clear'>
         <label>
           Fields
           <div class='database-fields-tools'>
@@ -162,6 +162,20 @@
 
     .database-fields-tools {
       padding: 10px 0;
+    }
+
+    .no-child-components {
+      float: left;
+      width: 50%;
+
+      input[type=text] {
+        width: 80%;
+      }
+    }
+
+    .clear {
+      clear: both;
+      padding-top: 30px;
     }
   }
 </style>
