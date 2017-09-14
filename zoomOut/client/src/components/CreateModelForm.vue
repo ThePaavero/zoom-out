@@ -96,6 +96,7 @@
         this.$store.commit('setCreatingNewModel', false)
         this.$store.commit('addNotification', {
           type: 'success',
+          ttl: 30,
           message: 'New model has been created!'
         })
       },
