@@ -32,17 +32,68 @@
   }
 </script>
 
-<style>
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #2c3e50;
-    margin-top: 60px;
+<style lang='scss' type='text/scss'>
+  * {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+
+  body {
+    font-family: 'PT Sans', sans-serif;
+    background-color: #eee;
+    color: #0d3625;
+  }
+
+  button {
+    padding: 10px 20px;
+    cursor: pointer;
+    background: #46916c;
+    color: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+
+  h1 {
+    margin-bottom: 20px;
+  }
+
+  h2 {
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    margin-bottom: 13px;
+  }
+
+  h4 {
+    margin-bottom: 8px;
+  }
+
+  ul {
+    list-style-type: square;
+    margin-left: 20px;
+
+    li {
+      padding: 5px 0;
+    }
   }
 
   a {
     color: inherit;
+  }
+
+  .cancel-button {
+    text-decoration: none;
+    font-size: 21px;
+
+    &.large {
+      font-size: 35px;
+    }
+  }
+
+  #app {
+    padding: 50px;
   }
 </style>

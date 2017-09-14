@@ -2,35 +2,39 @@
   <div @keyup.enter='submit' class='add-new-area'>
     <div v-if='isDisabled' class='disabled-blocker'></div>
     <h2>Create new model</h2>
-    <a href='#' @click.prevent='close'>Cancel</a>
-    <div class='row'>
-      <label>
-        Model class name
-        <input type='text' v-model='objectToCreate.className' placeholder='Product'/>
-      </label>
-    </div><!-- row -->
-    <div class='row'>
-      <label>
-        Timestamps
-        <input type='checkbox' value='index' v-model='objectToCreate.useTimestamps'/>
-      </label>
-    </div><!-- row -->
-    <div class='row'>
-      <label>
-        Soft deletes
-        <input type='checkbox' value='index' v-model='objectToCreate.useSoftDeleted'/>
-      </label>
-    </div><!-- row -->
-    <div class='row'>
-      <label>
-        Fields
-        <div v-for='field in objectToCreate.databaseFields'>
-          <ModelFieldForm :container='field' @canceled='cancelField(field)'/>
-        </div>
-      </label>
-    </div><!-- row -->
-    <button @click='addFieldForm'>Add field</button>
-    <button @click='submit'>Save</button>
+    <div class='content'>
+      <a href='#' @click.prevent='cancel' class='cancel-button large'>×</a>
+      <div class='row'>
+        <label>
+          Model class name
+          <input type='text' v-model='objectToCreate.className' placeholder='e.g. "Product"' ref='classNameInput'/>
+        </label>
+      </div><!-- row -->
+      <div class='row'>
+        <label>
+          Timestamps
+          <input type='checkbox' value='index' v-model='objectToCreate.useTimestamps'/>
+        </label>
+      </div><!-- row -->
+      <div class='row'>
+        <label>
+          Soft deletes
+          <input type='checkbox' value='index' v-model='objectToCreate.useSoftDeleted'/>
+        </label>
+      </div><!-- row -->
+      <div class='row'>
+        <label>
+          Fields
+          <div class='database-fields-tools'>
+            <div v-for='field in objectToCreate.databaseFields'>
+              <ModelFieldForm :container='field' @canceled='cancelField(field)'/>
+            </div>
+          </div><!-- database-fields-tools -->
+        </label>
+      </div><!-- row -->
+      <button @click='addFieldForm'>Add field</button>
+      <button @click='submit'>Save</button>
+    </div><!-- content -->
   </div><!-- add-new-area -->
 </template>
 
@@ -44,6 +48,9 @@
     props: [],
     components: {
       ModelFieldForm,
+    },
+    mounted() {
+      this.$refs.classNameInput.focus()
     },
     data() {
       return {
@@ -72,8 +79,12 @@
       setDisabled(bool) {
         this.isDisabled = bool
       },
-      close() {
+      cancel() {
         this.$store.commit('setCreatingNewModel', false)
+        this.$store.commit('addNotification', {
+          type: 'success',
+          message: 'New model canceled, nothing was saved.'
+        })
       },
       submit() {
         if (this.objectToCreate.databaseColumnName.trim() === '') {
@@ -114,12 +125,28 @@
 
 <style lang='scss' type='text/scss'>
   .add-new-area {
-    padding: 5px 10px;
-    background-color: #d8ffd8;
+    background-color: #fff;
     position: relative;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+
+    .content {
+      position: relative;
+      padding: 10px 20px;
+      border-top: none;
+
+      .cancel-button {
+        position: absolute;
+        top: 5px;
+        right: 20px;
+      }
+    }
 
     h2 {
       font-size: 15px;
+      padding: 5px 10px;
+      background: #9fd5bd;
+      color: #fff;
+      margin: 0;
     }
 
     select,
@@ -136,6 +163,10 @@
       background: #fff;
       opacity: 0.7;
       z-index: 5;
+    }
+
+    .database-fields-tools {
+      padding: 10px 0;
     }
   }
 </style>

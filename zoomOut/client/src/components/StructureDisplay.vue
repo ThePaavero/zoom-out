@@ -59,9 +59,16 @@
   }
 </script>
 
-<style scoped>
+<style lang='scss' type='text/scss' scoped>
   .structure-display {
     text-align: left;
+  }
+
+  section {
+    margin-bottom: 3vh;
+    background-color: rgba(255, 2555, 255, 0.3);
+    padding: 30px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
   }
 
   small {
