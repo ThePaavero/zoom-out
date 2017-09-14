@@ -13,9 +13,17 @@
 
   export default {
     mounted() {
+      const secondsToWaitBeforeGivingUp = 5
+      let gotServerResponse = false
       axios.get(this.$store.state.backendBaseUrl).then(response => {
+        gotServerResponse = true
         this.$store.commit('setStructure', response.data)
       })
+      setTimeout(() => {
+        if (!gotServerResponse) {
+          window.alert('Something\'s fucky. Is the server listening?')
+        }
+      }, secondsToWaitBeforeGivingUp * 1000)
     },
     components: {
       StructureDisplay

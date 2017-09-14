@@ -1,29 +1,8 @@
 import Vue from 'vue'
-import App from './App'
-import Vuex from 'vuex'
+import App from './App.vue'
+import store from './store/index'
 
-Vue.use(Vuex)
 Vue.config.productionTip = false
-
-const store = new Vuex.Store({
-  state: {
-    structure: null,
-    createNewModel: false,
-    modelsToCreate: [],
-    backendBaseUrl: 'http://zoom-out.dev:8000/zoomOut/backend/'
-  },
-  mutations: {
-    setStructure(state, structure){
-      state.structure = structure
-    },
-    setCreateNewModel(state, bool) {
-      state.createNewModel = bool
-    },
-    addToModelsToCreate(state, obj) {
-      state.modelsToCreate.push(obj)
-    },
-  }
-})
 
 new Vue({
   el: '#app',
