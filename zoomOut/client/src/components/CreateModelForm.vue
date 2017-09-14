@@ -82,14 +82,20 @@
       cancel() {
         this.$store.commit('setCreatingNewModel', false)
         this.$store.commit('addNotification', {
-          type: 'success',
+          type: 'neutral',
           message: 'New model canceled, nothing was saved.'
         })
       },
+      closeAfterSuccess() {
+        this.$store.commit('setCreatingNewModel', false)
+        this.$store.commit('addNotification', {
+          type: 'success',
+          message: 'New model has been created!'
+        })
+      },
       submit() {
-        if (this.objectToCreate.databaseColumnName.trim() === '') {
+        if (this.objectToCreate.className.trim() === '') {
           return
-
         }
         this.setDisabled(true)
         network.post('create.php', {
@@ -103,7 +109,7 @@
             network.get('').then(response => {
               this.$store.commit('setStructure', response.data)
               this.setDisabled(false)
-              this.close()
+              this.closeAfterSuccess()
             })
             return
           }
@@ -115,7 +121,7 @@
           return i !== field
         })
         this.$store.commit('addNotification', {
-          type: 'success',
+          type: 'neutral',
           message: 'Field canceled, nothing was saved.'
         })
       }
@@ -144,7 +150,7 @@
     h2 {
       font-size: 15px;
       padding: 5px 10px;
-      background: #9fd5bd;
+      background: #477468;
       color: #fff;
       margin: 0;
     }

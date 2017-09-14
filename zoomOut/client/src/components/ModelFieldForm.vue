@@ -125,6 +125,7 @@
     transition: opacity 0.15s;
     justify-content: center;
     margin-right: 2px;
+    pointer-events: none;
 
     label {
 
@@ -137,6 +138,7 @@
     }
 
     &.active {
+      pointer-events: initial;
       opacity: 1;
     }
   }

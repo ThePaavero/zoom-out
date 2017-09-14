@@ -37,6 +37,10 @@
       &.success {
         background-color: #2ab27b;
       }
+
+      &.neutral {
+        background-color: gray;
+      }
     }
   }
 </style>
