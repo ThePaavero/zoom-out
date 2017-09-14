@@ -67,6 +67,10 @@
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     transition: transform 0.05s;
 
+    &.strong-button {
+      background: #477468;
+    }
+
     &:hover {
       transform: scale(1.05);
     }

@@ -35,7 +35,7 @@
         </div><!-- row -->
         <button @click='addFieldForm'>Add field</button>
         <transition name="fade" mode="out-in">
-          <button @click='submit' v-if='okToSubmitModel'>Save</button>
+          <button @click='submit' v-if='okToSubmitModel' class='strong-button'>Save</button>
         </transition>
       </div><!-- content -->
     </form>
