@@ -35,6 +35,7 @@
 
 <script>
   import ModelFieldForm from './ModelFieldForm.vue'
+  import network from './../lib/NetworkCall'
   import axios from 'axios'
   import _ from 'lodash'
 
@@ -68,17 +69,15 @@
         this.$store.commit('setCreateNewModel', false)
       },
       submit() {
-        axios.post(this.$store.state.backendBaseUrl + 'create.php', {
+        network.post('create.php', {
           data: {
             object: this.objectToCreate,
             type: 'model'
           }
         }).then(response => {
-          console.log('RESPONSE:')
-          console.log(response.data)
           if (response.data.success) {
             this.$store.commit('structure', null)
-            axios.get(this.$store.state.backendBaseUrl).then(response => {
+            network.get('').then(response => {
               this.$store.commit('setStructure', response.data)
             })
             return

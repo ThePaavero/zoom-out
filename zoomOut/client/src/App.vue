@@ -10,12 +10,13 @@
 <script>
   import axios from 'axios'
   import StructureDisplay from './components/StructureDisplay.vue'
+  import network from './lib/NetworkCall'
 
   export default {
     mounted() {
       const secondsToWaitBeforeGivingUp = 5
       let gotServerResponse = false
-      axios.get(this.$store.state.backendBaseUrl).then(response => {
+      network.get('').then(response => {
         gotServerResponse = true
         this.$store.commit('setStructure', response.data)
       })

@@ -6,8 +6,7 @@ Vue.use(Vuex)
 const state = {
   structure: null,
   createNewModel: false,
-  modelsToCreate: [],
-  backendBaseUrl: 'http://zoom-out.dev:8000/zoomOut/backend/'
+  modelsToCreate: []
 }
 
 const mutations = {
