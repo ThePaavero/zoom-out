@@ -1,40 +1,42 @@
 <template>
   <div @keyup.enter='submit' class='add-new-area'>
-    <div v-if='isDisabled' class='disabled-blocker'></div>
-    <h2>Create new model</h2>
-    <div class='content'>
-      <a href='#' @click.prevent='cancel' class='cancel-button large'>×</a>
-      <div class='row no-child-components'>
-        <label>
-          Model class name
-          <input type='text' v-model='objectToCreate.className' placeholder='e.g. "Product"' ref='classNameInput'/>
-        </label>
-      </div><!-- row -->
-      <div class='row no-child-components'>
-        <label>
-          Timestamps
-          <input type='checkbox' value='index' v-model='objectToCreate.useTimestamps'/>
-        </label>
-      </div><!-- row -->
-      <div class='row no-child-components'>
-        <label>
-          Soft deletes
-          <input type='checkbox' value='index' v-model='objectToCreate.useSoftDeleted'/>
-        </label>
-      </div><!-- row -->
-      <div class='row clear'>
-        <label>
-          Fields
-          <div class='database-fields-tools'>
-            <div v-for='field in objectToCreate.databaseFields'>
-              <ModelFieldForm :container='field' @canceled='cancelField(field)'/>
-            </div>
-          </div><!-- database-fields-tools -->
-        </label>
-      </div><!-- row -->
-      <button @click='addFieldForm'>Add field</button>
-      <button @click='submit'>Save</button>
-    </div><!-- content -->
+    <form @change='validateState' @keyup='validateState' @submit.prevent=''>
+      <div v-if='isDisabled' class='disabled-blocker'></div>
+      <h2>Create new model</h2>
+      <div class='content'>
+        <a href='#' @click.prevent='cancel' class='cancel-button large'>×</a>
+        <div class='row no-child-components'>
+          <label>
+            Model class name
+            <input type='text' v-model='objectToCreate.className' placeholder='e.g. "Product"' ref='classNameInput'/>
+          </label>
+        </div><!-- row -->
+        <div class='row no-child-components'>
+          <label>
+            Timestamps
+            <input type='checkbox' value='index' v-model='objectToCreate.useTimestamps'/>
+          </label>
+        </div><!-- row -->
+        <div class='row no-child-components'>
+          <label>
+            Soft deletes
+            <input type='checkbox' value='index' v-model='objectToCreate.useSoftDeleted'/>
+          </label>
+        </div><!-- row -->
+        <div class='row clear'>
+          <label>
+            Fields
+            <div class='database-fields-tools'>
+              <div v-for='field in objectToCreate.databaseFields'>
+                <ModelFieldForm :container='field' @canceled='cancelField(field)'/>
+              </div>
+            </div><!-- database-fields-tools -->
+          </label>
+        </div><!-- row -->
+        <button @click='addFieldForm'>Add field</button>
+        <button @click='submit' v-if='okToSubmitModel'>Save</button>
+      </div><!-- content -->
+    </form>
   </div><!-- add-new-area -->
 </template>
 
@@ -60,7 +62,8 @@
           useTimestamps: true,
           useSoftDeletes: false
         },
-        isDisabled: false
+        isDisabled: false,
+        okToSubmitModel: false
       }
     },
     methods: {
@@ -126,6 +129,9 @@
           ttl: 3,
           message: 'Field canceled, nothing was saved.'
         })
+      },
+      validateState() {
+        this.okToSubmitModel = this.objectToCreate.className.trim() !== ''
       }
     }
   }
