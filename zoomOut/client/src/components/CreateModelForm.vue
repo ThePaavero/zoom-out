@@ -34,7 +34,9 @@
           </label>
         </div><!-- row -->
         <button @click='addFieldForm'>Add field</button>
-        <button @click='submit' v-if='okToSubmitModel'>Save</button>
+        <transition name="fade" mode="out-in">
+          <button @click='submit' v-if='okToSubmitModel'>Save</button>
+        </transition>
       </div><!-- content -->
     </form>
   </div><!-- add-new-area -->
