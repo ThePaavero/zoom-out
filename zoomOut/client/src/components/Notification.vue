@@ -10,7 +10,10 @@
   export default{
     props: ['notification'],
     mounted() {
-      const ttl = (this.notification.ttl || 5) * 1000
+      const ttl = typeof this.notification.ttl === 'undefined' ? -1 : (Number(this.notification.ttl) * 1000)
+      if (ttl < 0) {
+        return
+      }
       setTimeout(() => {
         this.close()
       }, ttl)

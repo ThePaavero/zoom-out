@@ -83,6 +83,7 @@
         this.$store.commit('setCreatingNewModel', false)
         this.$store.commit('addNotification', {
           type: 'neutral',
+          ttl: 3,
           message: 'New model canceled, nothing was saved.'
         })
       },
@@ -122,6 +123,7 @@
         })
         this.$store.commit('addNotification', {
           type: 'neutral',
+          ttl: 3,
           message: 'Field canceled, nothing was saved.'
         })
       }

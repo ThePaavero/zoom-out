@@ -42,6 +42,10 @@
       &.neutral {
         background-color: gray;
       }
+
+      &.error {
+        background-color: darkred;
+      }
     }
   }
 </style>

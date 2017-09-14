@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Notifications/>
     <transition name="fade" mode="out-in">
       <StructureDisplay v-if='this.$store.state.structure'/>
       <div v-else>
@@ -12,6 +13,7 @@
 <script>
   import axios from 'axios'
   import StructureDisplay from './components/StructureDisplay.vue'
+  import Notifications from './components/Notifications.vue'
   import network from './lib/NetworkCall'
 
   export default {
@@ -21,15 +23,25 @@
       network.get('').then(response => {
         gotServerResponse = true
         this.$store.commit('setStructure', response.data)
+      }).catch(err => {
+        this.$store.commit('addNotification', {
+          type: 'error',
+          message: 'The server choked on something!'
+        })
       })
       setTimeout(() => {
         if (!gotServerResponse) {
-          window.alert('Something\'s fucky. Is the server listening?')
+          this.$store.commit('addNotification', {
+            type: 'error',
+            ttl: 10,
+            message: 'Something\'s fucky. Is the server listening?'
+          })
         }
       }, secondsToWaitBeforeGivingUp * 1000)
     },
     components: {
-      StructureDisplay
+      StructureDisplay,
+      Notifications,
     }
   }
 </script>
