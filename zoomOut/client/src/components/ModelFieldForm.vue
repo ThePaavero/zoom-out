@@ -1,13 +1,13 @@
 <template>
   <div class='field-wrapper'>
     <form @keyup='validateState' @change='validateState'>
-      <div class='col'>
+      <div class='col active'>
         <label>
           Database column name
           <input type='text' v-model='container.databaseColumnName' placeholder='phoneNumber' ref='nameInput'/>
         </label>
       </div><!-- col -->
-      <div class='col'>
+      <div class='col active'>
         <label>
           Database column type
           <select v-model='container.databaseColumnType'>
@@ -15,13 +15,13 @@
           </select>
         </label>
       </div><!-- col -->
-      <div class='col' v-if='indexingAllowed'>
+      <div class='col' :class='{ active: indexingAllowed }'>
         <label>
           Index
           <input type='checkbox' value='index' v-model='container.isIndex'/>
         </label>
       </div><!-- col -->
-      <div class='col' v-if='nullableAllowed'>
+      <div class='col' :class='{ active: nullableAllowed }'>
         <label>
           Nullable
           <input type='checkbox' value='nullable' v-model='container.isNullable'/>
@@ -73,7 +73,10 @@
         this.$emit('canceled')
       },
       validateIndexable() {
-        const bool = this.indexableTypes.indexOf(this.container.databaseColumnType) > -1
+        let bool = this.indexableTypes.indexOf(this.container.databaseColumnType) > -1
+        if (this.container.isNullable) {
+          bool = false
+        }
         this.setIndexingAllowed(bool)
         if (bool === false && this.container.isIndex) {
           this.container.isIndex = false
@@ -96,7 +99,7 @@
   }
 </script>
 
-<style scoped>
+<style lang='scss' type='text/scss' scoped>
   .field-wrapper {
     position: relative;
     margin: 2px 0;
@@ -107,6 +110,12 @@
     padding: 5px 10px;
     display: inline-block;
     margin-right: 1px;
+    opacity: 0.3;
+    transition: opacity 0.15s;
+
+    &.active {
+      opacity: 1;
+    }
   }
 
   .cancel-button {
