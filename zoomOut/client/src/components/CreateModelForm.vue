@@ -63,7 +63,8 @@
           databaseColumnType: 'string',
           isIndex: false,
           useTimestamps: true,
-          useSoftDeleted: false
+          useSoftDeleted: false,
+          isNullable: false
         }
         this.objectToCreate.databaseFields.push(newFieldObject)
       },

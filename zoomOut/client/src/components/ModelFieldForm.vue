@@ -1,26 +1,34 @@
 <template>
   <div class='field-wrapper'>
-    <div class='col'>
-      <label>
-        Database column name
-        <input type='text' v-model='container.databaseColumnName' placeholder='phoneNumber' ref='nameInput'/>
-      </label>
-    </div><!-- col -->
-    <div class='col'>
-      <label>
-        Database column type
-        <select v-model='container.databaseColumnType' @change='validateIndexable' @keyup='validateIndexable'>
-          <option v-for='type in possibleTypes' :value='type'>{{ type }}</option>
-        </select>
-      </label>
-    </div><!-- col -->
-    <div class='col' v-if='indexingAllowed'>
-      <label>
-        Index
-        <input type='checkbox' value='index' v-model='container.isIndex'/>
-      </label>
-    </div><!-- col -->
-    <a href='#' @click.prevent='cancel' class='cancel-button'>Cancel</a>
+    <form @keyup='validateState' @change='validateState'>
+      <div class='col'>
+        <label>
+          Database column name
+          <input type='text' v-model='container.databaseColumnName' placeholder='phoneNumber' ref='nameInput'/>
+        </label>
+      </div><!-- col -->
+      <div class='col'>
+        <label>
+          Database column type
+          <select v-model='container.databaseColumnType'>
+            <option v-for='type in possibleTypes' :value='type'>{{ type }}</option>
+          </select>
+        </label>
+      </div><!-- col -->
+      <div class='col' v-if='indexingAllowed'>
+        <label>
+          Index
+          <input type='checkbox' value='index' v-model='container.isIndex'/>
+        </label>
+      </div><!-- col -->
+      <div class='col' v-if='nullableAllowed'>
+        <label>
+          Nullable
+          <input type='checkbox' value='nullable' v-model='container.isNullable'/>
+        </label>
+      </div><!-- col -->
+      <a href='#' @click.prevent='cancel' class='cancel-button'>Cancel</a>
+    </form>
   </div>
 </template>
 
@@ -28,12 +36,13 @@
   export default{
     mounted() {
       this.$refs.nameInput.focus()
-      this.validateIndexable()
+      this.validateState()
     },
     props: ['container'],
     data() {
       return {
         indexingAllowed: false,
+        nullableAllowed: false,
         possibleTypes: [
           'string',
           'text',
@@ -56,6 +65,10 @@
       }
     },
     methods: {
+      validateState() {
+        this.validateIndexable()
+        this.validateNullable()
+      },
       cancel() {
         this.$emit('canceled')
       },
@@ -68,6 +81,16 @@
       },
       setIndexingAllowed(bool) {
         this.indexingAllowed = bool
+      },
+      validateNullable() {
+        const bool = !this.container.isIndex
+        this.setNullableAllowed(bool)
+        if (!bool) {
+          this.container.isNullable = false
+        }
+      },
+      setNullableAllowed(bool) {
+        this.nullableAllowed = bool
       }
     }
   }
