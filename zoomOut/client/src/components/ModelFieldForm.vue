@@ -9,12 +9,12 @@
     <div class='col'>
       <label>
         Database column type
-        <select v-model='container.databaseColumnType'>
+        <select v-model='container.databaseColumnType' @change='validateIndexable' @keyup='validateIndexable'>
           <option v-for='type in possibleTypes' :value='type'>{{ type }}</option>
         </select>
       </label>
     </div><!-- col -->
-    <div class='col'>
+    <div class='col' v-if='indexingAllowed'>
       <label>
         Index
         <input type='checkbox' value='index' v-model='container.isIndex'/>
@@ -28,62 +28,46 @@
   export default{
     mounted() {
       this.$refs.nameInput.focus()
+      this.validateIndexable()
     },
     props: ['container'],
     data() {
       return {
+        indexingAllowed: false,
         possibleTypes: [
-          'bigIncrements',
-          'bigInteger',
-          'binary',
-          'boolean',
-          'char',
-          'date',
-          'dateTime',
-          'dateTimeTz',
-          'decimal',
-          'double',
-          'enum',
-          'float',
-          'increments',
-          'integer',
-          'ipAddress',
-          'json',
-          'jsonb',
-          'longText',
-          'macAddress',
-          'mediumIncrements',
-          'mediumInteger',
-          'mediumText',
-          'morphs',
-          'nullableMorphs',
-          'nullableTimestamps',
-          'rememberToken',
-          'smallIncrements',
-          'smallInteger',
-          'softDeletes',
-          'string',
           'string',
           'text',
-          'time',
-          'timeTz',
-          'tinyInteger',
-          'timestamp',
-          'timestampTz',
-          'timestamps',
-          'timestampsTz',
-          'unsignedBigInteger',
-          'unsignedInteger',
-          'unsignedMediumInteger',
-          'unsignedSmallInteger',
-          'unsignedTinyInteger',
-          'uuid',
+          'boolean',
+          'dateTime',
+          'float',
+          'integer',
+          'enum',
+          'json',
+          'longText',
+        ],
+        indexableTypes: [
+          'string',
+          'boolean',
+          'dateTime',
+          'float',
+          'integer',
+          'enum',
         ]
       }
     },
     methods: {
       cancel() {
         this.$emit('canceled')
+      },
+      validateIndexable() {
+        const bool = this.indexableTypes.indexOf(this.container.databaseColumnType) > -1
+        this.setIndexingAllowed(bool)
+        if (bool === false && this.container.isIndex) {
+          this.container.isIndex = false
+        }
+      },
+      setIndexingAllowed(bool) {
+        this.indexingAllowed = bool
       }
     }
   }
